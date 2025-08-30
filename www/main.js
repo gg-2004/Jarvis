@@ -46,6 +46,7 @@ $(document).ready(function () {
         
         $("#Oval").attr("hidden", true);
         $("#SiriWave").attr("hidden", false);
+        eel.takecommand()()
 
        
         
