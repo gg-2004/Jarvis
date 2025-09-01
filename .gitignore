@@ -1,0 +1,4 @@
+# Ignore config files
+contacts.csv
+jarvis.db
+db.py
