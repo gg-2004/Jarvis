@@ -17,6 +17,7 @@ import pywhatkit as kit
 from engine.helper import extract_yt_term, remove_words
 
 
+
 # --- Globals / DB ---
 con = sqlite3.connect("jarvis.db")
 cursor = con.cursor()
@@ -183,3 +184,5 @@ def whatsApp(mobile_no, message, flag, name):
         pyautogui.press('enter')
 
     speak(jarvis_message)
+
+

@@ -2,8 +2,22 @@ import pyttsx3
 import speech_recognition as sr
 import eel
 import time
+import google.generativeai as genai
+import os
+from dotenv import load_dotenv   
+
+# ========== GEMINI SETUP ==========
+load_dotenv()  
+API_KEY = os.getenv("GEMINI_API_KEY")   
+genai.configure(api_key=API_KEY)
+
+def ask_gemini(prompt):  
+    model = genai.GenerativeModel("gemini-1.5-flash")  
+    response = model.generate_content(prompt)
+    return response.text
 
 
+# ========== SPEAK ==========
 def speak(text):
     engine = pyttsx3.init('sapi5')
     voices = engine.getProperty('voices')
@@ -14,12 +28,9 @@ def speak(text):
     eel.receiverText(text) 
     engine.runAndWait()
 
-    
 
-
-   
+# ========== LISTEN ==========
 def takecommand():
-
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print('listening....')
@@ -28,7 +39,6 @@ def takecommand():
         r.adjust_for_ambient_noise(source)
         audio = r.listen(source, 10 , 6)
 
-
     try:
         print('recognizing')
         eel.DisplayMessage('recognizing....')
@@ -36,18 +46,16 @@ def takecommand():
         print (f"user said: {query}") 
         eel.DisplayMessage(query)
         time.sleep(2)
-        
-        
     except Exception as e:  
         return ""  
     
     return query.lower()
 
 
+# ========== COMMAND HANDLER ==========
 @eel.expose
 def allCommands(message=1):
-
-    if message ==1:
+    if message == 1:
         query = takecommand()
         print(query)
         eel.senderText(query)
@@ -56,10 +64,10 @@ def allCommands(message=1):
         eel.senderText(query)
 
     try: 
-        
         if "open" in query:
             from engine.features import openCommand
             openCommand(query)
+
         elif "on youtube" in query:
             from engine.features import PlayYoutube
             PlayYoutube(query)
@@ -81,18 +89,14 @@ def allCommands(message=1):
                     message = 'video call'
                     
                 whatsApp(contact_no, query, message, name)   
-        else:    
-            print("not run")
-    except:
-        print("error")
 
+        else:
+           
+            reply = ask_gemini(query)
+            print(f" Jarvis (Gemini): {reply}")
+            speak(reply)
 
-    eel.ShowHood()  
-            
+    except Exception as e:
+        print("error:", e)
 
-
-
-
-         
-
-   
+    eel.ShowHood()

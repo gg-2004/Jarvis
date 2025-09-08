@@ -2,3 +2,4 @@
 contacts.csv
 jarvis.db
 db.py
+engine\.env

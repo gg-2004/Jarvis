@@ -1,0 +1,9 @@
+groq
+googlesearch-python
+cohere
+diffusers
+torch
+torchvision
+torchaudio
+pillow
+python-dotenv
