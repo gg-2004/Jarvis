@@ -105,21 +105,34 @@ def hotword():
 
         # loop for streaming
         while True:
-            keyword = audio_stream.read(porcupine.frame_length)
+            keyword = audio_stream.read(porcupine.frame_length, exception_on_overflow=False)
             keyword = struct.unpack_from("h" * porcupine.frame_length, keyword)
 
-            # processing keyword detected for mic
             keyword_index = porcupine.process(keyword)
 
-            # checking first keyword detected or not
             if keyword_index >= 0:
                 print("hotword detected")
 
-                # pressing shortcut key win+j
+                # press Win+J
                 pyautogui.keyDown("win")
                 pyautogui.press("j")
-                time.sleep(2)
-                pyautogui.keyUp("win")  # fixed stray space
+                time.sleep(0.2)
+                pyautogui.keyUp("win")
+
+               
+                audio_stream.close()
+                paud.terminate()
+                porcupine.delete()
+
+                porcupine = pvporcupine.create(keywords=["jarvis", "alexa"])
+                paud = pyaudio.PyAudio()
+                audio_stream = paud.open(
+                    rate=porcupine.sample_rate,
+                    channels=1,
+                    format=pyaudio.paInt16,
+                    input=True,
+                    frames_per_buffer=porcupine.frame_length,
+                )
 
     except Exception as e:
         print("Error:", e)
