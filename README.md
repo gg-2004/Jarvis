@@ -45,6 +45,9 @@ A Python-based AI assistant that listens, automates tasks, and answers queries u
 ## 🎥 Demo
 Watch the project demo here:  
 [▶ Click to watch on Google Drive](https://drive.google.com/file/d/1XyBkBBKozAUZl2eCrrluOpvJMlcCnBbG/view?usp=drive_link)
+https://drive.google.com/file/d/1Fh1WCBQKs93mI5DrMug-RSVilPidpMU8/view?usp=drive_link
+https://drive.google.com/file/d/12CK7oOCxwfpRuulzTwjDSVQE6_2vvf6U/view?usp=drive_link
+https://drive.google.com/file/d/1r3gOhni1Pygp8y3SWbX2h1KZi0yegg_u/view?usp=drive_link
 
 ## 🏗️ Architecture
 
